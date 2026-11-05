@@ -7,7 +7,13 @@ class Graph:
         self.edges = {}
 
     def add_edge(self, source, target, weight=1):
-        if isinstance(weight, bool) or not isinstance(weight, (int, float)) or weight < 0:\n            raise ValueError("weight must be finite and nonnegative")\n        try:\n            finite = math.isfinite(weight)\n        except OverflowError:\n            finite = False\n        if not finite:
+        if isinstance(weight, bool) or not isinstance(weight, (int, float)) or weight < 0:
+            raise ValueError("weight must be finite and nonnegative")
+        try:
+            finite = math.isfinite(weight)
+        except OverflowError:
+            finite = False
+        if not finite:
             raise ValueError("weight must be finite and nonnegative")
         self.edges.setdefault(source, {})[target] = weight
         self.edges.setdefault(target, {})
