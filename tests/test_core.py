@@ -22,5 +22,19 @@ class GraphTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 graph.add_edge("a", "b", value)
 
+
+    def test_zero_weight_and_mixed_nodes(self):
+        graph = Graph(directed=True)
+        graph.add_edge("start", 42, 0)
+        graph.add_edge(42, ("end",), 0)
+        self.assertEqual(graph.shortest_path("start", ("end",))["distance"], 0)
+        self.assertEqual(graph.reachable(42), {42, ("end",)})
+
+    def test_huge_weight_is_rejected(self):
+        graph = Graph()
+        with self.assertRaises(ValueError):
+            graph.add_edge("a", "b", 10 ** 1000)
+        self.assertEqual(graph.edges, {})
+
 if __name__ == "__main__":
     unittest.main()
