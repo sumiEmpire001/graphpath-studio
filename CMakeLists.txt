@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.16)
+project(graphpath_cpp LANGUAGES CXX)
+enable_testing()
+add_executable(test_graph cpp/tests/test_graph.cpp)
+target_include_directories(test_graph PRIVATE cpp/include)
+target_compile_features(test_graph PRIVATE cxx_std_11)
+add_test(NAME graph_cpp COMMAND test_graph)
